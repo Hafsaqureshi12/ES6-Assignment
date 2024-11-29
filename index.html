@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>
+        <center>"ES6 Assignment"</center>
+    </h1>
+    <script>
+        // 1. Write a function that uses both var, let, and const to create three variables
+        // with different scoping.Use a template literal to return a string explaining the
+        // scopes of each variable.Test this function and print the result.
+
+        document.write("<h2>Template Literals:</h2>")
+        function myIntroduction() {
+            var globalScope = "This variable is declared using 'var'and is function-scoped. <br>"
+            let blockScope = "This variable is declared using 'let' and is Block-scoped ,<br>"
+            const constantVariable = "This variable is declared using 'const' and cannot be reassigned <br>"
+            return `
+         ${globalScope}
+         ${blockScope}
+         ${constantVariable}
+    `;
+        }
+        document.write(myIntroduction());
+
+        // 2.  Create a function called createMultiplier that takes a single parameter
+        // multiplier.This function should return another function that takes a number
+        // as input and returns that number multiplied by the original multiplier.
+        // Demonstrate this closure by creating functions like double and triple using
+        // createMultiplier and calling them with different numbers.
+
+
+        document.write("<h2>Closures:</h2>")
+        function createMultiplier(multiplier) {
+            return function (number) {
+                return number * multiplier
+            }
+        }
+        const double = createMultiplier(2);
+        const triple = createMultiplier(3);
+        document.write(double(5) + '<br>');
+        document.write(triple(2) + '<br>');
+
+        // 3.Create a function that accepts an object with properties name, age, country,
+        // and city.Destructure these properties in the function parameters and set
+        // default values for country and city.The function should return a string using
+        // the destructured values with template literals.
+
+        document.write("<h2>Destructing:</h2>")
+        function about({ name, age, country = "pakistan", city = "karachi" }) {
+            return `Hi! My self ${name} and I'm ${age} years old. I live in ${country}, ${city}.`;
+        }
+
+        const myIntro = {
+            name: "Hafsa Tahir",
+            age: 23
+        };
+        document.write(about(myIntro));
+
+        // 4. Write a function called calculateTotal that takes a price and a variable
+        // number of discounts as arguments (use rest parameters). Subtract each discount
+        // from the price using the spread operator and return the final discounted price.
+
+        document.write("<h2>Rest Parameters:</h2>")
+        function calculateTotal(price, ...discounts) {
+            let finalPrice = price;
+
+            for (let discount of discounts) {
+                finalPrice -= discount;
+            }
+            return finalPrice;
+        }
+        const total = calculateTotal(1000, 50, 100, 30);
+        document.write(total);
+
+        // 5.Create an object calculator that has two methods: add and subtract.Use
+        // enhanced object literals and arrow functions to define these methods.Each
+        // method should take two numbers and return the result.Test these methods by
+        // calling them with different numbers.
+
+        document.write("<h2>Enhanced Object Literals & Arrow Function:</h2>")
+        const calculator = {
+            add: (a, b) => a + b,
+            subtract: (a, b) => a - b,
+        };
+        document.write(calculator.add(50, 40) + '<br>');
+        document.write(calculator.subtract(100, 40));
+
+        // 6. Create an array of objects representing books with properties title, author,
+        //     and yearPublished.Write a function that uses a for..of loop to iterate over
+        // this array and logs each book's information in a formatted string.
+
+        document.write("<h2>for..of Loops:</h2>");
+        const books = [
+            { title: "A Smarter Way to Learn JavaScript", author: "Mark Myers", yearPublished: 2013 },
+            { title: "To Kill a Mockingbird", author: "Harper Lee", yearPublished: 1960 },
+            { title: "1984", author: "George Orwell", yearPublished: 1949 }
+        ];
+
+        function logBookInfo(booksArray) {
+            for (const book of booksArray) {
+                document.write(`Title: "${book.title}", Author: ${book.author}, Year Published: ${book.yearPublished}<br>`);
+            }
+        }
+        logBookInfo(books);
+
+        // 7. Write a generator function called idGenerator that generates unique IDs
+        // starting from 1. Call this generator multiple times to get unique IDs and print
+        // them.
+
+        document.write("<h2>Generator function:</h2>");
+        function* idGenerator() {
+            let id = 1;
+            while (true) {
+                yield id++;
+
+            }
+        }
+        let gen = idGenerator();
+        document.write(gen.next().value + '<br>');
+        document.write(gen.next().value + '<br>');
+        document.write(gen.next().value + '<br>');
+        document.write(gen.next().value + '<br>');
+        document.write(gen.next().value + '<br>');
+
+        // 9. Create an object student with properties name, age, grade, and subjects
+        // (an array of subjects).Use a for..in loop to iterate over the properties of the
+        // object and log each property and its value.
+
+        let student = {
+            Name: "Hafsa",
+            Age: 23,
+            Grade: "A",
+            Subjects: ["Maths", "English", "Chemistry", "Physics", "Urdu"]
+        };
+
+        let output = "<h2>Student Information</h2>";
+        for (let key in student) {
+            if (Array.isArray(student[key])) {
+                output += `${key}: ${student[key].join(", ")}<br>`;
+            } else {
+                output += `${key}: ${student[key]}<br>`;
+            }
+        }
+        document.write(output);
+
+        // 10.Given an array of numbers, use the map method to create a new array where
+        // each element is the square of the original array elements.Print both the original
+        // and the modified array.
+
+        document.write("<h2>Map Method:</h2>")
+        let numbers = [1, 2, 3, 4];
+        let square = numbers.map(n => n * n);
+        document.write(square);
+
+        // 11. Write a function operate that takes two numbers and a callback function as
+        // arguments.The callback will perform a mathematical operation(e.g., addition,
+        // subtraction) on the two numbers.Define separate functions for addition and
+        // subtraction, and pass them as callbacks to operate.
+
+        document.write("<h2>Callback Function:</h2>")
+        function add(a, b) {
+            return a + b;
+        }
+
+        function subtraction(a, b) {
+            return a - b;
+        }
+
+        function operate(num1, num2, callback) {
+            return callback(num1, num2);
+        }
+
+        let resultAdd = operate(5, 8, add);
+        document.write(`Addition of 5 and 8 is: ${resultAdd} <br>`);
+
+        let resultSubtraction = operate(20, 15, subtraction);
+        document.write(`Subtraction of 20 and 15 is: ${resultSubtraction} <br>`);
+
+        // // 12.Use setTimeout to create a function that prints "Hello, World!" after a 
+        // // delay of 3 seconds.
+
+        setTimeout(() => {
+            document.write("Hello world! <br>");
+        }, 3000);
+
+        //  13.Use setInterval to create a function that logs the current time every 2
+        // seconds. After 10 seconds, clear the interval.
+        // document.write("<h2>SetInterval Function</h2>")
+        // const myInterval = setInterval(myTimer, 2000);
+
+        function myTimer() {
+            document.getElementById("time-container").innerHTML = date.toLocaleTimeString();
+            document.write(date.toLocaleTimeString());
+        }
+
+        setTimeout(() => {
+            clearInterval(myInterval);
+            document.write("Interval cleared after 10 seconds.");
+        }, 10000);
+
+        // 14.Create a function fetchData that returns a promise.Inside the function, use
+        // setTimeout to simulate a network request that resolves with a message("Data
+        // received!") after 2 seconds. Then, call fetchData and handle the response with
+        // .then() and.catch().
+
+        document.write("<h2>SetInterval Function</h2>")
+        function fetchData() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve("Data received! <br>");
+                }, 2000);
+            });
+        }
+        fetchData()
+            .then(response => {
+                document.write(response);
+            })
+            .catch(error => {
+                document.write("Error:", error);
+            });
+
+        // 15.Rewrite the fetchData function (from Question 5) using async and await.
+        // Call this new function and log the result.
+
+        document.write("<h2>Async and Await function:</h2>")
+        async function fetchData() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve("Data received! <br>");
+                }, 2000);
+            });
+        }
+        async function displayData() {
+            const result = await fetchData();
+            document.write(result);
+        }
+        displayData();
+
+        // 16.Write a function that accepts two parameters, base and exponent, and uses
+        // the exponentiation operator (**) to calculate and return the result. Test this
+        // function with different values.
+
+        function calculation(base, exponent) {
+            return base ** exponent;
+        }
+
+        document.write("<h2>Exponentiation Operator:</h2><br>");
+
+        document.write(calculation(2, 3));
+        document.write("<br>");
+
+        document.write(calculation(5, 2));
+        document.write("<br>");
+
+        document.write(calculation(10, 2));
+
+        // 17.Define a class Animal with a constructor that accepts name and species.Add
+        // a method speak that logs a message like "Dog says Woof!" Create instances of
+        // this class with different animals and call the speak method for each.
+
+        document.write("<h2>Class Animal With Constructor:</h2>")
+        class Animal {
+            constructor(name, species) {
+                this.name = name;
+                this.species = species;
+            }
+            speak() {
+                if (this.species === "Canine") {
+                    document.write(`${this.name} says Woof! <br>`);
+                } else if (this.species === "Feline") {
+                    document.write(`${this.name} says Meow! <br>`);
+                } else if (this.species === "Bovine") {
+                    document.write(`${this.name} says Moo! <br>`);
+                } else {
+                    document.write(`${this.name} makes a sound!`);
+                }
+            }
+        }
+        const dog = new Animal("Dog", "Canine");
+        const cat = new Animal("Cat", "Feline");
+        const cow = new Animal("Cow", "Bovine");
+
+        dog.speak();
+        cat.speak();
+        cow.speak();
+
+        // 18.Create a function that checks if a number is even or odd using the ternary
+        // operator. The function should return "Even" if the number is even and "Odd" if it
+        // is odd. Test the function with various numbers.
+
+        document.write("<h2>Ternary Operators:</h2>")
+        function checkEvenOdd(number) {
+            return number % 2 === 0 ? "Even" : "Odd";
+        }
+
+        document.write(checkEvenOdd(2) + '<br>');
+        document.write(checkEvenOdd(3) + '<br>');
+        document.write(checkEvenOdd(4) + '<br>');
+        document.write(checkEvenOdd(5) + '<br>');
+        document.write(checkEvenOdd(9));
+
+        // 19.Create an object user with a nested object address. The address object
+        // should have a property city. Write a function to safely log the city name using
+        // optional chaining, even if the address or city properties do not exist.
+
+        document.write("<h2>Optional Chaining::</h2>")
+        let user = {
+            name: "John",
+            address: {
+                city: "New York",
+            }
+        };
+        function logCity(user){
+            document.write(user.address?.city + '<br>')
+        };
+        logCity(user);
+        let userWithoutAddress = {
+            name: "John"
+        };
+        logCity(userWithoutAddress);
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
